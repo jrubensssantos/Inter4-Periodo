@@ -27,7 +27,7 @@
             		<div class="panel-body">
             			<form class="form-horizontal" name="formCadProd" id="formCadProd" action="produtos.php" method="post">
 							<div class="form-group">														
-								<div class="col-sm-3">
+								<div class="col-sm-4">
 									<label for="DsProduto">Produto</label>									
 									<div class="input-group">
 								      	<div class="input-group-addon"></div>
@@ -38,12 +38,43 @@
 								</div>                   
 							</div>
 							<div class="form-group">														
-								<div class="col-sm-3">
+								<div class="col-sm-2">
 									<label for="NuValor">Valor</label>
 									<div class="input-group">
 										<div class="input-group-addon"></div>						      	
 										<input class="form-control" name="NuValor" id="NuValor" type="text" placeholder="Valor" maxlength="100" value="<?php echo $objRow['NuValor']; ?>">
 									</div><span id="errof"></span>
+								</div>                   
+							</div>
+							<div class="form-group">					
+								<div class="col-sm-3">
+									<label for="Categoria">Categoria</label>
+									<div class="input-group">
+								      	<div class="input-group-addon"></div>								      	
+								      	<select id="teCategoria_idCategoria" name="teCategoria_idCategoria" class="form-control">
+								      		<option>Selecione a categoria</option>
+								      			
+								      		<?php 
+									      		$strSQL = 	"	
+									      						SELECT 	
+									      							idCategoria
+																	, NmCategoria												
+																FROM 
+																	teCategoria
+															";
+												$objRs = mysql_query($strSQL);
+													
+									      		while ($retorna = mysql_fetch_array($objRs))
+												{
+													echo "<option ";
+													echo ($retorna["idCategoria"] === $objRow["teCategoria_idCategoria"])? 
+													" selected = 'selected ' ":"";
+													echo " value='{$retorna['idCategoria']}'>{$retorna['NmCategoria']}";
+													echo "</option>";													
+												}
+											?>
+										</select>
+									</div>									
 								</div>                   
 							</div>				            
 			  			</form>

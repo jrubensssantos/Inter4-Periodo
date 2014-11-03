@@ -14,7 +14,7 @@ if(strlen($objRow["idUsuario"] > 0)){
 	$_SESSION["DsEmail"] = $objRow["DsEmail"];
 	$_SESSION["NmUsuario"] = $objRow["NmUsuario"];
 	mysql_close();
-	header("location:listMovimento.php");
+	header("location:cadPedido.php");
 	exit();
 } 
 else 

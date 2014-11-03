@@ -27,7 +27,7 @@ if($idUsuario!=0)
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-body">
-                <form class="form-horizontal" name="formCadPedido" id="formCadPedido" action="pedido.php" method="post">
+                <form class="form-horizontal" name="formCadPedido" id="formCadPedido" action="pedidos.php" method="post">
                     <div class="form-group">
                         <div class="col-sm-3">
                             <label for="DsTelefone">Telefone</label>
@@ -38,8 +38,38 @@ if($idUsuario!=0)
                                        onkeypress="mascaraTelefone(this)" >
                             </div><span id="errDsTelefone"></span>
                         </div>
-
-                        <div class="col-sm-6">
+											
+							<div class="col-sm-6">
+								<label for="Cliente">Cliente</label>
+								<div class="input-group">
+							      	<div class="input-group-addon"></div>								      	
+							      	<select id="teCliente_idCliente" name="teCliente_idCliente" class="form-control">
+							      		<option>Selecione o Cliente</option>
+							      			
+							      		<?php 
+								      		$strSQL = 	"	
+								      						SELECT 	
+								      							idCliente
+																, NmCliente												
+															FROM 
+																teCliente
+														";
+											$objRs = mysql_query($strSQL);
+												
+								      		while ($retorna = mysql_fetch_array($objRs))
+											{
+												echo "<option ";
+												echo ($retorna["idCliente"] === $objRow["teCliente_idCliente"])? 
+												" selected = 'selected ' ":"";
+												echo " value='{$retorna['idCliente']}'>{$retorna['NmCliente']}";
+												echo "</option>";													
+											}
+										?>
+									</select>
+								</div>									
+							</div>
+						</div>
+                        <!-- <div class="col-sm-6">
                             <label for="NmCliente">Nome Cliente</label>
                             <div class="input-group">
                                 <div class="input-group-addon"></div>
@@ -50,10 +80,10 @@ if($idUsuario!=0)
                                        placeholder="Nome" maxlength="100" value="<?php echo $objRow['NmCliente']; ?>">
                             </div><span id="errNmCliente"></span>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="form-group">
-                        <div class="col-sm-12">
+                        <div class="col-sm-9">
                             <label for="DsEnderecoEntrega">Endereço de entrega</label>
                             <div class="input-group">
                                 <div class="input-group-addon"></div>
@@ -63,8 +93,40 @@ if($idUsuario!=0)
                             </div><span id="errDsEnderecoEntrega"></span>
                         </div>
                     </div>
-
-                    <div class="form-group">
+					
+					<div class="form-group">					
+						<div class="col-sm-3">
+							<label for="ItemPedido">Produto</label>
+							<div class="input-group">
+						      	<div class="input-group-addon"></div>								      	
+						      	<select id="teProduto_idProduto" name="teProduto_idProduto" class="form-control">
+						      		<option>Selecione o produto</option>
+						      			
+						      		<?php 
+							      		$strSQL = 	"	
+							      						SELECT 	
+							      							idProduto
+															, DsProduto												
+														FROM 
+															teProduto
+													";
+										$objRs = mysql_query($strSQL);
+											
+							      		while ($retorna = mysql_fetch_array($objRs))
+										{
+											echo "<option ";
+											echo ($retorna["idProduto"] === $objRow["teProduto_idProduto"])? 
+											" selected = 'selected ' ":"";
+											echo " value='{$retorna['idProduto']}'>{$retorna['DsProduto']}";
+											echo "</option>";													
+										}
+									?>
+								</select>
+							</div>									
+						</div>                   
+							
+					
+                    <!-- <div class="form-group">
                         <div class="col-sm-6">
                             <label for="DsProduto">Produto</label>
                             <div class="input-group">
@@ -75,7 +137,7 @@ if($idUsuario!=0)
                                 <input class="form-control" name="DsProduto" id="DsProduto" type="text"
                                        placeholder="Produto" maxlength="100" value="<?php echo $objRow['DsProduto']; ?>">
                             </div><span id="errDsProduto"></span>
-                        </div>
+                        </div> -->
 
                         <div class="col-sm-3">
                             <label for="NuQuantidade">Quantidade</label>

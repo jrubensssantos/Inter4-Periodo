@@ -38,12 +38,11 @@
 								</div>                   
 							</div>
 							<div class="form-group">														
-								<div class="col-sm-3">
+								<div class="col-sm-2">
 									<label for="FgStatus">Status</label>
 									<div class="input-group">
 										<div class="input-group-addon"></div>						      	
 										<select id="FgStatus" name="FgStatus" class="form-control">
-											<option>Selecione o status</option>
 											<option value="A" <?php echo $objRow["FgStatus"]==="A"?" selected = 'selected' ":""; ?> >Ativo</option>
 											<option value="B" <?php echo $objRow["FgStatus"]==="B"?" selected = 'selected' ":""; ?> >Bloqueado</option>
 											</select> 

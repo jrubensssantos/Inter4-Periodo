@@ -8,6 +8,7 @@
   	$arrDados["idProduto"] = mysql_real_escape_string($arrDados["idProduto"]);
 	$arrDados["DsProduto"] = mysql_real_escape_string($arrDados["DsProduto"]);
 	$arrDados["NuValor"] = mysql_real_escape_string($arrDados["NuValor"]);
+	$arrDados["idCategoria"] = mysql_real_escape_string($arrDados["idCategoria"]);
 	
 	if((strlen($arrDados["idProduto"]) > 0) && ($arrDados["acao"] === "E"))
 	{
@@ -16,7 +17,8 @@
 							tele_entregas.teProduto
 						SET
 							 DsProduto = 	'{$arrDados['DsProduto']}'						
-							,NuValor = 	'{$arrDados['NuValor']}'									
+							,NuValor = 	'{$arrDados['NuValor']}'
+							,teCategoria_idCategoria = 	'{$arrDados['teCategoria_idCategoria']}'									
 						WHERE
 							idProduto = '{$arrDados['idProduto']}' 
 					";
@@ -95,13 +97,15 @@
 	
 		$arrDados["DsProduto"] = mysql_real_escape_string($arrDados["DsProduto"]);
 		$arrDados["NuValor"] = mysql_real_escape_string($arrDados["NuValor"]);
+		$arrDados["teCategoria_idCategoria"] = mysql_real_escape_string($arrDados["teCategoria_idCategoria"]);
 		$strSQL = 	"		
 						INSERT INTO 
-							tele_entregas.teProduto(DsProduto, NuValor) 
+							tele_entregas.teProduto(DsProduto, NuValor, teCategoria_idCategoria) 
 						VALUES 
 						(
 							'{$arrDados["DsProduto"]}'
-							,'{$arrDados["NuValor"]}'	
+							,'{$arrDados["NuValor"]}'
+							,'{$arrDados["teCategoria_idCategoria"]}'								
 						)
 	  				";	
 						

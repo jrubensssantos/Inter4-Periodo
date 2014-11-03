@@ -105,10 +105,10 @@
 		}
 	}//fim do inserte
 
-		echo "<div id='page-wrapper'>	
-					<div class='row'>
-        				<div class='col-lg-12' id='mensagem'>"
-            			.$strMsg."<a href='listUsuario.php'> Exibir cadastros</a>      				
-    				</div>";//fim mensagem para o usuário
+	echo "<div id='page-wrapper'>	
+		<div class='row'>
+			<div class='col-lg-12' id='mensagem'>"
+			.$strMsg."<a href='listUsuario.php'> Exibir cadastros</a>      				
+		</div>";//fim mensagem para o usuário
 
 	require_once("rodape.php");

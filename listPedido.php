@@ -33,7 +33,7 @@
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Código</th>
+                    <th>N° Pedido</th>
                     <th>Cliente</th>
                     <th>Data Pedido</th>
                     <th>Endereço Entrega</th>
