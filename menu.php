@@ -22,42 +22,42 @@
                 </li>
                 <li>
                     <a href="#" ><i class="fa fa-user fa-fw"></i>Usuário</a>
-                    <ul class="nav" id="side-menu">
+                    <ul class="nav btnFilho" id="side-menu">
 						<li><a href="cadUsuario.php"><i class="fa fa-edit fa-fw"></i>Cadastrar</a></li>
 						<li><a href="listUsuario.php"><i class="fa fa-list fa-fw"></i>Listar</a></li>
 					</ul>                  
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-check fa-fw"></i>Cliente</a>
-                    <ul class="nav" id="side-menu">
+                    <ul class="nav btnFilho" id="side-menu">
 						<li><a href="cadCliente.php"><i class="fa fa-edit fa-fw"></i>Cadastrar</a></li>
 						<li><a href="listCliente.php"><i class="fa fa-list fa-fw"></i>Listar</a></li>
 					</ul>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-ticket fa-fw"></i>Produto</a>
-                    <ul class="nav" id="side-menu">
+                    <ul class="nav btnFilho" id="side-menu">
 						<li><a href="cadProduto.php"><i class="fa fa-edit fa-fw"></i>Cadastrar</a></li>
 						<li><a href="listProduto.php"><i class="fa fa-list fa-fw"></i>Listar</a></li>
 					</ul>
                 </li>
                 <li>
                     <a href="#" ><i class="fa fa-paperclip fa-fw"></i>Pedido</a>
-                    <ul class="nav" id="side-menu">
+                    <ul class="nav btnFilho" id="side-menu">
 						<li><a href="cadPedido.php"><i class="fa fa-edit fa-fw"></i>Cadastrar</a></li>
 						<li><a href="listPedido.php"><i class="fa fa-list fa-fw"></i>Listar</a></li>
 					</ul>                  
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-table fa-fw"></i>Categoria</a>
-                    <ul class="nav" id="side-menu">
+                    <ul class="nav btnFilho" id="side-menu">
 						<li><a href="cadCategoria.php"><i class="fa fa-edit fa-fw"></i>Cadastrar</a></li>
 						<li><a href="listCategoria.php"><i class="fa fa-list fa-fw"></i>Listar</a></li>
 					</ul>
                 </li>
                 <!--<li>
                     <a href="#"><i class="fa fa-institution fa-fw"></i>Item</a>
-                    <ul class="nav" id="side-menu">
+                    <ul class="nav btnFilho" id="side-menu">
 						<li><a href="cadItem.php"><i class="fa fa-edit fa-fw"></i>Cadastrar</a></li>
 						<li><a href="listItem.php"><i class="fa fa-list fa-fw"></i>Listar</a></li>
 					</ul>

@@ -27,7 +27,7 @@ if($idUsuario!=0)
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-body">
-                <form class="form-horizontal" name="formCadPedido" id="formCadPedido" action="pedidos.php" method="post">
+                <form class="form-horizontal" name="formCadPedido" id="formCadPedido" action="pedido.php" method="post">
                     <div class="form-group">
                         <div class="col-sm-3">
                             <label for="DsTelefone">Telefone</label>
@@ -38,38 +38,8 @@ if($idUsuario!=0)
                                        onkeypress="mascaraTelefone(this)" >
                             </div><span id="errDsTelefone"></span>
                         </div>
-											
-							<div class="col-sm-6">
-								<label for="Cliente">Cliente</label>
-								<div class="input-group">
-							      	<div class="input-group-addon"></div>								      	
-							      	<select id="teCliente_idCliente" name="teCliente_idCliente" class="form-control">
-							      		<option>Selecione o Cliente</option>
-							      			
-							      		<?php 
-								      		$strSQL = 	"	
-								      						SELECT 	
-								      							idCliente
-																, NmCliente												
-															FROM 
-																teCliente
-														";
-											$objRs = mysql_query($strSQL);
-												
-								      		while ($retorna = mysql_fetch_array($objRs))
-											{
-												echo "<option ";
-												echo ($retorna["idCliente"] === $objRow["teCliente_idCliente"])? 
-												" selected = 'selected ' ":"";
-												echo " value='{$retorna['idCliente']}'>{$retorna['NmCliente']}";
-												echo "</option>";													
-											}
-										?>
-									</select>
-								</div>									
-							</div>
-						</div>
-                        <!-- <div class="col-sm-6">
+
+                        <div class="col-sm-6">
                             <label for="NmCliente">Nome Cliente</label>
                             <div class="input-group">
                                 <div class="input-group-addon"></div>
@@ -80,10 +50,10 @@ if($idUsuario!=0)
                                        placeholder="Nome" maxlength="100" value="<?php echo $objRow['NmCliente']; ?>">
                             </div><span id="errNmCliente"></span>
                         </div>
-                    </div> -->
+                    </div>
 
                     <div class="form-group">
-                        <div class="col-sm-9">
+                        <div class="col-sm-12">
                             <label for="DsEnderecoEntrega">Endereço de entrega</label>
                             <div class="input-group">
                                 <div class="input-group-addon"></div>
@@ -93,58 +63,42 @@ if($idUsuario!=0)
                             </div><span id="errDsEnderecoEntrega"></span>
                         </div>
                     </div>
-					
-					<div class="form-group">					
-						<div class="col-sm-3">
-							<label for="ItemPedido">Produto</label>
-							<div class="input-group">
-						      	<div class="input-group-addon"></div>								      	
-						      	<select id="teProduto_idProduto" name="teProduto_idProduto" class="form-control">
-						      		<option>Selecione o produto</option>
-						      			
-						      		<?php 
-							      		$strSQL = 	"	
-							      						SELECT 	
-							      							idProduto
-															, DsProduto												
-														FROM 
-															teProduto
-													";
-										$objRs = mysql_query($strSQL);
-											
-							      		while ($retorna = mysql_fetch_array($objRs))
-										{
-											echo "<option ";
-											echo ($retorna["idProduto"] === $objRow["teProduto_idProduto"])? 
-											" selected = 'selected ' ":"";
-											echo " value='{$retorna['idProduto']}'>{$retorna['DsProduto']}";
-											echo "</option>";													
-										}
-									?>
-								</select>
-							</div>									
-						</div>                   
-							
-					
-                    <!-- <div class="form-group">
+
+                    <div class="form-group">
                         <div class="col-sm-6">
                             <label for="DsProduto">Produto</label>
                             <div class="input-group">
                                 <div class="input-group-addon"></div>
-                                <input type="hidden" name="idProduto" id="idProduto"
-                                       value="<?php echo $arrDados["IdProduto"]; ?>" />
-                                <input type="hidden" name="acao" id="acao" value="E" />
-                                <input class="form-control" name="DsProduto" id="DsProduto" type="text"
-                                       placeholder="Produto" maxlength="100" value="<?php echo $objRow['DsProduto']; ?>">
+                                    <select id="teProduto_listProduto" name="teProduto_listProduto" class="form-control">
+                                        <option selected value="">Selecione um Produto</option>
+                                        <?php
+                                            $strSQL = " SELECT
+                                                            idProduto
+                                                            , DsProduto
+                                                            ,NuValor
+                                                        FROM
+                                                            teProduto
+                                                      ";
+
+                                            $objRs = mysql_query($strSQL);
+
+                                            while($objRowProduto = mysql_fetch_array($objRs))
+                                            {
+                                                echo "<option value='{$objRowProduto["idProduto"]}|{$objRowProduto["NuValor"]}|{$objRowProduto["DsProduto"]}'>{$objRowProduto["DsProduto"]}</option>";
+                                            }
+                                        ?>
+                                    </select>
+
                             </div><span id="errDsProduto"></span>
-                        </div> -->
+                        </div>
 
                         <div class="col-sm-3">
                             <label for="NuQuantidade">Quantidade</label>
                             <div class="input-group">
                                 <div class="input-group-addon"></div>
                                 <input class="form-control" name="NuQuantidade" id="NuQuantidade" type="text"
-                                       placeholder="Quantidade" maxlength="10" onkeypress='return numero(event)'>
+                                       placeholder="Quantidade" maxlength="10" onkeypress='return numero(event)'
+                                       onblur="validaValor();" >
                             </div><span id="errNuQuantidade"></span>
                         </div>
 
@@ -196,40 +150,54 @@ if($idUsuario!=0)
             </div>
             <div class="modal-footer">
                 <button name="btnSalvar" id="btnSalvar" class="btn btn-success">Gravar</button>
-                <a href="listPedido.php"><button name="cancelar" id="cancelar" class="btn btn-default"
+                <a href="listUsuario.php"><button name="cancelar" id="cancelar" class="btn btn-default"
                                                   data-dismiss="modal">Cancelar</button></a>
             </div>
         </div>
     </div>
     <script language="JavaScript">
+        function validaValor()
+        {
+            var produto = document.querySelector('#teProduto_listProduto').value.split("|");
+            var nuQuantidade = parseFloat(document.getElementById('NuQuantidade').value);
+			var nuValor = parseFloat(produto[1]);            
+
+            document.getElementById('NuValor').value = (nuQuantidade * nuValor);
+            document.getElementById('btnIncluir').focus();
+        }
 
         document.getElementById("btnIncluir").onclick = function () {
             var table = document.getElementById("tblItens");
             var numOfRows = table.rows.length;
             var newRow = table.insertRow(numOfRows);
 
-            var idProduto = document.getElementById('idProduto');
-            var dsProduto = document.getElementById('DsProduto');
-            var nuQuantidade = document.getElementById('NuQuantidade');
-            var nuValor = document.getElementById('NuValor');
-            var nuTotalProduto = document.getElementById('NuTotalProduto');
+            var produto = document.querySelector('#teProduto_listProduto').value.split("|");
+            var idProduto = produto[0];
+            var nmProduto = produto[2];
+            var nuValor = parseFloat(produto[1]);
 
-            if(idProduto > 0 && nuQuantidade > 0 && !isNaN(nuQuantidade)) {
+            var nuQuantidade = parseFloat(document.getElementById('NuQuantidade').value);
+            var nuTotalProduto = (nuQuantidade * nuValor);
+
+            if(idProduto > 0 && nuQuantidade > 0) {
                 // Faz um loop para criar as colunas
                 for (var j = 0; j < 6; j++) {
                     // Insere uma coluna na nova linha
                     newCell = newRow.insertCell(j);
                     // Insere um conteúdo na coluna
-                    if (j == 0) { newCell.innerHTML = idProduto.value(); };
-                    if (j == 1) { newCell.innerHTML = dsProduto.value(); };
-                    if (j == 2) { newCell.innerHTML = nuQuantidade.value(); };
-                    if (j == 3) { newCell.innerHTML = nuValor.value(); };
-                    if (j == 4) { newCell.innerHTML = nuTotalProduto.value(); };
+                    if (j == 0) { newCell.innerHTML = idProduto; };
+                    if (j == 1) { newCell.innerHTML = nmProduto; };
+                    if (j == 2) { newCell.innerHTML = nuQuantidade; };
+                    if (j == 3) { newCell.innerHTML = nuValor; };
+                    if (j == 4) { newCell.innerHTML = nuTotalProduto; };
                     if (j == 5) { newCell.innerHTML = "<a href='#' onclick='javascript: ExcluirItem();' title='ExcluirItem'> " +
                                                       "<img src='images/delete.png' alt='ExcluirItem' /> </a>";
                     };
                 };
-            }
+            	document.getElementById('NuQuantidade').value = "";
+	            document.querySelector('#teProduto_listProduto').value = "";
+	            document.getElementById('NuValor').value = "";
+            }            
             else
             {
                 if (idProduto == null || isNaN(idProduto)) {

@@ -9,7 +9,7 @@
 						 NmUsuario
 						, DsEmail
 					FROM
-						tsUsuario
+						teUsuario
 					WHERE
 						idUsuario = '{$arrDados["idUsuario"]}' "; 
 	
@@ -40,6 +40,19 @@
 								      	<div class="input-group-addon">@</div>								      	
 								      	<input class="form-control" name="DsEmail" id="DsEmail" type="text" placeholder="Email" maxlength="255" value="<?php echo $objRow['DsEmail']; ?>">
 									</div><span id="erroe"></span>										
+								</div>                   
+							</div>
+							<div class="form-group">														
+								<div class="col-sm-2">
+									<label for="FgStatus">Status</label>
+									<div class="input-group">
+										<div class="input-group-addon"></div>						      	
+										<select id="FgStatus" name="FgStatus" class="form-control">
+											<option value="A" <?php echo $objRow["FgStatus"]==="A"?" selected = 'selected' ":""; ?> >Ativo</option>
+											<option value="B" <?php echo $objRow["FgStatus"]==="B"?" selected = 'selected' ":""; ?> >Bloqueado</option>
+											</select> 
+										<br />
+									</div><span id="errof"></span>
 								</div>                   
 							</div>
 			  			</form>

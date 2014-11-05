@@ -37,7 +37,7 @@
 				                </tr>
 				            </thead>                    
 							<?php						
-							$strSQL = "SELECT idCliente, NmCliente, DsEmail, DsTelefone, DtNascimento FROM tele_entregas.teCliente WHERE 1=1";
+							$strSQL = "SELECT idCliente, NmCliente, DsEmail, DsTelefone, date_format(DtNascimento, '%d/%m/%Y') AS DtNascimento FROM tele_entregas.teCliente WHERE 1=1";
 									//if de uma linha que trabalha os dois escopos true ou false de forma simplificada.		
 							$strSQL .= (strlen($arrDados["fltNome"]) <= 0)?"" :" AND NmCliente LIKE '%".mysql_real_escape_string($arrDados["fltNome"])."%'";				
 							$objRs = mysql_query($strSQL);
@@ -51,7 +51,7 @@
 								echo "<td> {$objRow['DsEmail']} </td>";
 								echo "<td> {$objRow['DsTelefone']} </td>";
 								echo "<td class='center'>
-									<a href='editCliente.php?idCliente={$objRow["idCliente"]}' title='Editar'>
+									<a href='cadCliente.php?idCliente={$objRow["idCliente"]}' title='Editar'>
 										<img src='images/edit.png' alt='Editar' />
 									</a>							
 									<a href='#' onclick='javascript: excluir({$objRow['idCliente']});' title='Excluir'>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 4.2.7.1
 -- http://www.phpmyadmin.net
 --
--- Máquina: localhost
--- Data de Criação: 30-Out-2014 às 22:40
--- Versão do servidor: 5.6.12-log
--- versão do PHP: 5.4.12
+-- Host: 127.0.0.1
+-- Generation Time: 03-Nov-2014 às 03:11
+-- Versão do servidor: 5.6.20
+-- PHP Version: 5.5.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,10 +17,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de Dados: `tele_entregas`
+-- Database: `tele_entregas`
 --
-CREATE DATABASE IF NOT EXISTS `tele_entregas` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_mysql500_ci;
-USE `tele_entregas`;
 
 -- --------------------------------------------------------
 
@@ -29,11 +27,18 @@ USE `tele_entregas`;
 --
 
 CREATE TABLE IF NOT EXISTS `tecategoria` (
-  `idCategoria` int(11) NOT NULL AUTO_INCREMENT,
+`idCategoria` int(11) NOT NULL,
   `NmCategoria` varchar(100) COLLATE utf8_general_mysql500_ci NOT NULL,
-  `FgStatus` char(1) COLLATE utf8_general_mysql500_ci NOT NULL DEFAULT 'A',
-  PRIMARY KEY (`idCategoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=1 ;
+  `FgStatus` char(1) COLLATE utf8_general_mysql500_ci NOT NULL DEFAULT 'A'
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=3 ;
+
+--
+-- Extraindo dados da tabela `tecategoria`
+--
+
+INSERT INTO `tecategoria` (`idCategoria`, `NmCategoria`, `FgStatus`) VALUES
+(1, 'Alimento Assado', 'A'),
+(2, 'Bebida', 'A');
 
 -- --------------------------------------------------------
 
@@ -42,13 +47,21 @@ CREATE TABLE IF NOT EXISTS `tecategoria` (
 --
 
 CREATE TABLE IF NOT EXISTS `tecliente` (
-  `idCliente` int(11) NOT NULL AUTO_INCREMENT,
+`idCliente` int(11) NOT NULL,
   `NmCliente` varchar(100) COLLATE utf8_general_mysql500_ci NOT NULL,
   `DsTelefone` varchar(100) COLLATE utf8_general_mysql500_ci NOT NULL,
   `DsEmail` varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
-  `DtNascimento` date NOT NULL,
-  PRIMARY KEY (`idCliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=1 ;
+  `DtNascimento` date NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=4 ;
+
+--
+-- Extraindo dados da tabela `tecliente`
+--
+
+INSERT INTO `tecliente` (`idCliente`, `NmCliente`, `DsTelefone`, `DsEmail`, `DtNascimento`) VALUES
+(1, 'Alessandro Marques', '(31) 9244-3733 ', 'alessandro.smarques@gmail.com', '2010-10-10'),
+(2, 'João Rubens', '(31) 2561-9876', 'joao.rubens@gmail.com', '2000-11-15'),
+(3, 'Fabricio Moreira', '(31) 4567-5677', 'fabricio.moreira@gmail.com', '1966-11-10');
 
 -- --------------------------------------------------------
 
@@ -57,11 +70,19 @@ CREATE TABLE IF NOT EXISTS `tecliente` (
 --
 
 CREATE TABLE IF NOT EXISTS `teproduto` (
-  `idProduto` int(11) NOT NULL AUTO_INCREMENT,
+`idProduto` int(11) NOT NULL,
   `DsProduto` varchar(100) COLLATE utf8_general_mysql500_ci NOT NULL,
   `NuValor` float NOT NULL,
-  PRIMARY KEY (`idProduto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=1 ;
+  `teCategoria_idCategoria` int(11) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=3 ;
+
+--
+-- Extraindo dados da tabela `teproduto`
+--
+
+INSERT INTO `teproduto` (`idProduto`, `DsProduto`, `NuValor`, `teCategoria_idCategoria`) VALUES
+(1, 'Refrigerante', 3.5, 2),
+(2, 'Pizza Modelo 1', 19.9, 1);
 
 -- --------------------------------------------------------
 
@@ -70,12 +91,11 @@ CREATE TABLE IF NOT EXISTS `teproduto` (
 --
 
 CREATE TABLE IF NOT EXISTS `teusuario` (
-  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
+`idUsuario` int(11) NOT NULL,
   `DsEmail` varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
   `NmUsuario` varchar(45) COLLATE utf8_general_mysql500_ci NOT NULL,
   `DsSenha` varchar(400) COLLATE utf8_general_mysql500_ci NOT NULL,
-  `FgStatus` char(1) COLLATE utf8_general_mysql500_ci NOT NULL DEFAULT 'A',
-  PRIMARY KEY (`idUsuario`)
+  `FgStatus` char(1) COLLATE utf8_general_mysql500_ci NOT NULL DEFAULT 'A'
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=2 ;
 
 --
@@ -83,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `teusuario` (
 --
 
 INSERT INTO `teusuario` (`idUsuario`, `DsEmail`, `NmUsuario`, `DsSenha`, `FgStatus`) VALUES
-(1, 'inter@teleentregas.com', 'Inter', '81dc9bdb52d04dc20036dbd8313ed055', 'A');
+(1, 'alessandro@unipaccontagem.com.br', 'Alessandro Marques', '81dc9bdb52d04dc20036dbd8313ed055', 'A');
 
 -- --------------------------------------------------------
 
@@ -92,12 +112,12 @@ INSERT INTO `teusuario` (`idUsuario`, `DsEmail`, `NmUsuario`, `DsSenha`, `FgStat
 --
 
 CREATE TABLE IF NOT EXISTS `tuitempedido` (
-  `idItemPedido` int(11) NOT NULL AUTO_INCREMENT,
+`idItemPedido` int(11) NOT NULL,
   `teProduto_idProduto` int(11) NOT NULL,
   `NuValor` float NOT NULL,
   `NuQuantidade` float NOT NULL,
   `NuValorEntrega` float NOT NULL,
-  PRIMARY KEY (`idItemPedido`)
+  `tuPedido_idPedido` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -107,12 +127,133 @@ CREATE TABLE IF NOT EXISTS `tuitempedido` (
 --
 
 CREATE TABLE IF NOT EXISTS `tupedido` (
-  `idPedido` int(11) NOT NULL AUTO_INCREMENT,
+`idPedido` int(11) NOT NULL,
   `DtPedido` date NOT NULL,
   `teCliente_idCliente` int(11) NOT NULL,
   `DsEnderecoEntrega` varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
-  PRIMARY KEY (`idPedido`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=1 ;
+  `FgStatus` varchar(1) COLLATE utf8_general_mysql500_ci NOT NULL DEFAULT 'A'
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=3 ;
+
+--
+-- Extraindo dados da tabela `tupedido`
+--
+
+INSERT INTO `tupedido` (`idPedido`, `DtPedido`, `teCliente_idCliente`, `DsEnderecoEntrega`, `FgStatus`) VALUES
+(1, '2014-11-12', 1, 'Rua dos Jaguarapes, 255 Apto 105', 'A'),
+(2, '2014-11-15', 2, 'Rua margaridas 20, Proximo ao Epa', 'A');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vwpedidocliente`
+--
+CREATE TABLE IF NOT EXISTS `vwpedidocliente` (
+`idPedido` int(11)
+,`DtPedido` date
+,`NmCliente` varchar(100)
+,`DsEnderecoEntrega` varchar(255)
+,`fltFiltro` varchar(376)
+,`FgStatus` varchar(1)
+);
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vwpedidocliente`
+--
+DROP TABLE IF EXISTS `vwpedidocliente`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwpedidocliente` AS select `p`.`idPedido` AS `idPedido`,`p`.`DtPedido` AS `DtPedido`,`c`.`NmCliente` AS `NmCliente`,`p`.`DsEnderecoEntrega` AS `DsEnderecoEntrega`,concat(`p`.`idPedido`,`p`.`DtPedido`,`c`.`NmCliente`,`p`.`DsEnderecoEntrega`) AS `fltFiltro`,`p`.`FgStatus` AS `FgStatus` from (`tupedido` `p` left join `tecliente` `c` on((`c`.`idCliente` = `p`.`teCliente_idCliente`)));
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tecategoria`
+--
+ALTER TABLE `tecategoria`
+ ADD PRIMARY KEY (`idCategoria`);
+
+--
+-- Indexes for table `tecliente`
+--
+ALTER TABLE `tecliente`
+ ADD PRIMARY KEY (`idCliente`);
+
+--
+-- Indexes for table `teproduto`
+--
+ALTER TABLE `teproduto`
+ ADD PRIMARY KEY (`idProduto`), ADD KEY `fk_Produto_Categoria_idx` (`teCategoria_idCategoria`);
+
+--
+-- Indexes for table `teusuario`
+--
+ALTER TABLE `teusuario`
+ ADD PRIMARY KEY (`idUsuario`);
+
+--
+-- Indexes for table `tuitempedido`
+--
+ALTER TABLE `tuitempedido`
+ ADD PRIMARY KEY (`idItemPedido`), ADD KEY `fk_ItemPedido_Pedido_idx` (`tuPedido_idPedido`), ADD KEY `fk_ItemPedido_Produto_idx` (`teProduto_idProduto`);
+
+--
+-- Indexes for table `tupedido`
+--
+ALTER TABLE `tupedido`
+ ADD PRIMARY KEY (`idPedido`), ADD KEY `fk_Pedido_Cliente_idx` (`teCliente_idCliente`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tecategoria`
+--
+ALTER TABLE `tecategoria`
+MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `tecliente`
+--
+ALTER TABLE `tecliente`
+MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `teproduto`
+--
+ALTER TABLE `teproduto`
+MODIFY `idProduto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `teusuario`
+--
+ALTER TABLE `teusuario`
+MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tuitempedido`
+--
+ALTER TABLE `tuitempedido`
+MODIFY `idItemPedido` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tupedido`
+--
+ALTER TABLE `tupedido`
+MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Limitadores para a tabela `tuitempedido`
+--
+ALTER TABLE `tuitempedido`
+ADD CONSTRAINT `fk_ItemPedido_Pedido` FOREIGN KEY (`tuPedido_idPedido`) REFERENCES `tupedido` (`idPedido`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `fk_ItemPedido_Produto` FOREIGN KEY (`teProduto_idProduto`) REFERENCES `teproduto` (`idProduto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `tupedido`
+--
+ALTER TABLE `tupedido`
+ADD CONSTRAINT `fk_Pedido_Cliente` FOREIGN KEY (`teCliente_idCliente`) REFERENCES `tecliente` (`idCliente`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

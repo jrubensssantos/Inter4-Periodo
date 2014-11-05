@@ -2,8 +2,8 @@
 	$arrDados = $_GET;
 	
 	$arrDados["idCliente"] = mysql_real_escape_string($arrDados["idCliente"]);
-	$idUsuario = $arrDados["idCliente"]==""?0:$arrDados["idCliente"];
-	if($idUsuario!=0)
+	$idCliente = $arrDados["idCliente"]==""?0:$arrDados["idCliente"];
+	if($idCliente!=0)
 	{
 		$strSQL = "SELECT
 						 NmCliente
